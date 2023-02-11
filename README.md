@@ -1,5 +1,5 @@
-# Vocabulary - Accounting and Audit Domain
-Standard vocabularies for the accounting and audit business domain
+# Vocabulary - Finance & Accounting Domain
+Standard vocabularies for the finance & accounting business domain
 
 ## Links
 
