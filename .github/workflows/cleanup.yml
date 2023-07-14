@@ -1,0 +1,21 @@
+name: Cleanup site preview on AWS S3
+
+on:
+  # Runs on pull requests against main branch
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  # Build job
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+    - name: "Closing the corresponding PR in vocabulary-outputs"
+      run: |
+        gh pr close uncefact/${{ github.event.repository.name }}/pull/${{ github.event.pull_request.number }} --repo uncefact/vocabulary-outputs
