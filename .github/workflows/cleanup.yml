@@ -13,9 +13,16 @@ jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Generate a token
+      id: generate_token
+      uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
       with:
-        ref: ${{ github.event.pull_request.head.ref }}
+        app_id: ${{ secrets.APP_ID }}
+        private_key:
+          ${{ secrets.APP_PRIVATE_KEY }}
     - name: "Closing the corresponding PR in vocabulary-outputs"
+      env:
+        GH_TOKEN:
+          ${{ steps.generate_token.outputs.token }}
       run: |
         gh pr close uncefact/${{ github.event.repository.name }}/pull/${{ github.event.pull_request.number }} --repo uncefact/vocabulary-outputs
